@@ -48,10 +48,10 @@ public class Book {
     @Override
     public String toString() {
         return "ID: " + id +
-                "\nTitle: " + title +
-                "\nAuthor: " + author +
-                "\nCategory: " + category +
-                "\nAvailable: " + available +
-                "\nsCover: " + coverPathOrUrl;
+                " | Title: " + title +
+                " | Author: " + author +
+                " | Category: " + category +
+                " | Available: " + (available ? "Yes" : "No") +
+                " | Cover: " + coverPathOrUrl;
     }
 }

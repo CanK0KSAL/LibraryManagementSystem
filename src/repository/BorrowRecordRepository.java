@@ -17,7 +17,18 @@ public class BorrowRecordRepository {
 
     public BorrowRecord findActiveByBookId(String bookId) {
         for (BorrowRecord record : records) {
-            if (record.getBookId().equals(bookId) && !record.isReturned()) {
+            if (record.getBookId().equalsIgnoreCase(bookId) && !record.isReturned()) {
+                return record;
+            }
+        }
+        return null;
+    }
+
+    public BorrowRecord findActiveByBookIdAndUserId(String bookId, String userId) {
+        for (BorrowRecord record : records) {
+            if (record.getBookId().equalsIgnoreCase(bookId)
+                    && record.getUserId().equalsIgnoreCase(userId)
+                    && !record.isReturned()) {
                 return record;
             }
         }
@@ -28,7 +39,19 @@ public class BorrowRecordRepository {
         ArrayList<BorrowRecord> results = new ArrayList<>();
 
         for (BorrowRecord record : records) {
-            if (record.getUserId().equals(userId)) {
+            if (record.getUserId().equalsIgnoreCase(userId)) {
+                results.add(record);
+            }
+        }
+
+        return results;
+    }
+
+    public ArrayList<BorrowRecord> findActiveByUserId(String userId) {
+        ArrayList<BorrowRecord> results = new ArrayList<>();
+
+        for (BorrowRecord record : records) {
+            if (record.getUserId().equalsIgnoreCase(userId) && !record.isReturned()) {
                 results.add(record);
             }
         }

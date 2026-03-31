@@ -54,10 +54,10 @@ public class BorrowRecord {
     @Override
     public String toString() {
         return "Record ID: " + id +
-                "\nUser ID: " + userId +
-                "\nBook ID: " + bookId +
-                "\nBorrow Date: " + borrowDate +
-                "\nDue Date: " + dueDate +
-                "\nReturn Date: " + (returnDate == null ? "Not Returned" : returnDate);
+                " | User ID: " + userId +
+                " | Book ID: " + bookId +
+                " | Borrow Date: " + borrowDate +
+                " | Due Date: " + dueDate +
+                " | Return Date: " + (returnDate == null ? "Not Returned" : returnDate);
     }
 }

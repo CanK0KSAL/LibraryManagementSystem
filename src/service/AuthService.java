@@ -11,24 +11,55 @@ public class AuthService {
         this.userRepository = userRepository;
     }
 
-    public boolean register(String id, String fullName, String email, String password) {
-        if (userRepository.findById(id) != null) {
-            return false;
+    public String register(String id, String fullName, String email, String password) {
+        if (id == null || id.trim().isEmpty()) {
+            return "User ID cannot be empty.";
         }
 
-        if (userRepository.findByEmail(email) != null) {
-            return false;
+        if (fullName == null || fullName.trim().isEmpty()) {
+            return "Full name cannot be empty.";
         }
 
-        User newUser = new User(id, fullName, email, password, Role.MEMBER);
+        if (email == null || email.trim().isEmpty()) {
+            return "Email cannot be empty.";
+        }
+
+        if (!email.contains("@") || !email.contains(".")) {
+            return "Email format is invalid.";
+        }
+
+        if (password == null || password.trim().length() < 4) {
+            return "Password must be at least 4 characters.";
+        }
+
+        if (userRepository.findById(id.trim()) != null) {
+            return "This user ID already exists.";
+        }
+
+        if (userRepository.findByEmail(email.trim()) != null) {
+            return "This email is already registered.";
+        }
+
+        User newUser = new User(
+                id.trim(),
+                fullName.trim(),
+                email.trim(),
+                password.trim(),
+                Role.MEMBER
+        );
+
         userRepository.addUser(newUser);
-        return true;
+        return "SUCCESS";
     }
 
     public User login(String email, String password) {
-        User user = userRepository.findByEmail(email);
+        if (email == null || password == null) {
+            return null;
+        }
 
-        if (user != null && user.getPassword().equals(password)) {
+        User user = userRepository.findByEmail(email.trim());
+
+        if (user != null && user.getPassword().equals(password.trim())) {
             return user;
         }
 

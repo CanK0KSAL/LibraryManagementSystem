@@ -17,7 +17,7 @@ public class BookRepository {
 
     public Book findById(String id) {
         for (Book book : books) {
-            if (book.getId().equals(id)) {
+            if (book.getId().equalsIgnoreCase(id)) {
                 return book;
             }
         }
@@ -34,5 +34,13 @@ public class BookRepository {
         }
 
         return results;
+    }
+
+    public boolean removeById(String id) {
+        Book book = findById(id);
+        if (book == null) {
+            return false;
+        }
+        return books.remove(book);
     }
 }
